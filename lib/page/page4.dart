@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'InspectionStandart/InspectionStandart-main.dart';
 import 'page0.dart';
 import '../data/global.dart';
 
@@ -17,12 +18,7 @@ class Page4Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        height: 100,
-        width: 100,
-        color: Colors.red,
-        child: const Text("PAGE 4"),
-      ),
+      child: InspStdbody(),
     );
   }
 }

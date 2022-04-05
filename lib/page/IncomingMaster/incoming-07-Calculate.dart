@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/BlocEvent/01-incoming.dart';
 import '../../data/global.dart';
 
 String _searchResult = '';
 
-class IncSpeciSPeTable extends StatefulWidget {
-  IncSpeciSPeTable({Key? key, this.data}) : super(key: key);
-  List<dataset>? data;
+class IncCalculateTable extends StatefulWidget {
+  IncCalculateTable({Key? key, this.data}) : super(key: key);
+  mapdataset? data;
 
   @override
-  _IncSpeciSPeTableState createState() => _IncSpeciSPeTableState();
+  _IncCalculateTableState createState() => _IncCalculateTableState();
 }
 
-class _IncSpeciSPeTableState extends State<IncSpeciSPeTable> {
+class _IncCalculateTableState extends State<IncCalculateTable> {
   int _sortColumnIndex = 0;
   bool _sortAscending = true;
 
@@ -21,13 +22,14 @@ class _IncSpeciSPeTableState extends State<IncSpeciSPeTable> {
   void initState() {
     super.initState();
     // context.read<DataSetBloc>().add(GetDataPressed());
+    context.read<Incoming_Bloc>().add(Incoming_CALCULATE_flush());
   }
 
   TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final _MyData _data = _MyData(context, widget.data ?? []);
+    final _MyData _data = _MyData(context, widget.data?.set01 ?? []);
 
     void _sort<T>(Comparable<T> Function(dataset d) getField, int columnIndex,
         bool ascending) {
@@ -82,20 +84,25 @@ class _IncSpeciSPeTableState extends State<IncSpeciSPeTable> {
                             _sort<String>(
                                 (dataset d) => d.f01, columnIndex, ascending)),
                     DataColumn(
-                        label: const Text('SPECIFICATION'),
+                        label: const Text('NAME'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f02, columnIndex, ascending)),
                     DataColumn(
-                        label: const Text('masterID'),
+                        label: const Text('Formula'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f03, columnIndex, ascending)),
                     DataColumn(
-                        label: const Text('ACTION'),
+                        label: const Text('masterID'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f04, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('ACTION'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f05, columnIndex, ascending)),
                   ],
                   columnSpacing: 100,
                   horizontalMargin: 10,
@@ -170,6 +177,7 @@ class _MyData extends DataTableSource {
           DataCell(Text(data.f01)),
           DataCell(Text(data.f02)),
           DataCell(Text(data.f03)),
+          DataCell(Text(data.f04)),
           DataCell(Row(
             children: [
               InkWell(

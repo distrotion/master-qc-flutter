@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/BlocEvent/01-incoming.dart';
 import '../../data/global.dart';
-import '../../widget/common/ComInputText.dart';
-import 'incoming-control.dart';
 
 String _searchResult = '';
-late BuildContext IncTypeContexttable;
 
-class IncTypeTable extends StatefulWidget {
-  IncTypeTable({Key? key, this.data}) : super(key: key);
-  List<dataset>? data;
+class IncMachineNameTable extends StatefulWidget {
+  IncMachineNameTable({Key? key, this.data}) : super(key: key);
+  mapdataset? data;
 
   @override
-  _IncTypeTableState createState() => _IncTypeTableState();
+  _IncMachineNameTableState createState() => _IncMachineNameTableState();
 }
 
-class _IncTypeTableState extends State<IncTypeTable> {
+class _IncMachineNameTableState extends State<IncMachineNameTable> {
   int _sortColumnIndex = 0;
   bool _sortAscending = true;
 
@@ -24,14 +22,14 @@ class _IncTypeTableState extends State<IncTypeTable> {
   void initState() {
     super.initState();
     // context.read<DataSetBloc>().add(GetDataPressed());
+    context.read<Incoming_Bloc>().add(Incoming_MACHINE_flush());
   }
 
   TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    IncTypeContexttable = context;
-    final _MyData _data = _MyData(context, widget.data ?? []);
+    final _MyData _data = _MyData(context, widget.data?.set01 ?? []);
 
     void _sort<T>(Comparable<T> Function(dataset d) getField, int columnIndex,
         bool ascending) {
@@ -78,52 +76,33 @@ class _IncTypeTableState extends State<IncTypeTable> {
                 width: 1200,
                 child: PaginatedDataTable(
                   source: _data,
-                  header: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('TYPE'),
-                      Row(
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Icon(
-                              Icons.refresh,
-                              color: Colors.white,
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              IncType_TYPE = '';
-                              IncType_masterID = '';
-                              _IncTypeConsoleBox();
-                            },
-                            // style: ButtonStyle(
-                            //   backgroundColor:
-                            //       MaterialStateProperty.all(Colors.red),
-                            // ),
-
-                            child: const Text("NEW"),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  header: const Text('Table Master'),
                   columns: [
                     DataColumn(
-                        label: const Text('TYPE'),
+                        label: const Text('METHOD'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f01, columnIndex, ascending)),
                     DataColumn(
-                        label: const Text('masterID'),
+                        label: const Text('MACHINE'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f02, columnIndex, ascending)),
                     DataColumn(
-                        label: const Text('ACTION'),
+                        label: const Text('DESIMAL'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f03, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('masterID'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f04, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('ACTION'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f05, columnIndex, ascending)),
                   ],
                   columnSpacing: 100,
                   horizontalMargin: 10,
@@ -160,7 +139,9 @@ class _MyData extends DataTableSource {
     for (int i = 0; i < _data.length; i++) {
       if (_data[i].f01.toLowerCase().contains(_searchResult) ||
           _data[i].f02.toLowerCase().contains(_searchResult) ||
-          _data[i].f03.toLowerCase().contains(_searchResult)) {
+          _data[i].f03.toLowerCase().contains(_searchResult) ||
+          _data[i].f04.toLowerCase().contains(_searchResult) ||
+          _data[i].f05.toLowerCase().contains(_searchResult)) {
         _data_exp.add(_data[i]);
       }
     }
@@ -197,14 +178,13 @@ class _MyData extends DataTableSource {
         cells: [
           DataCell(Text(data.f01)),
           DataCell(Text(data.f02)),
+          DataCell(Text(data.f03)),
+          DataCell(Text(data.f04)),
           DataCell(Row(
             children: [
               InkWell(
                 onTap: () {
-                  // print(data.f01);
-                  IncType_TYPE = data.f01;
-                  IncType_masterID = data.f02;
-                  _IncTypeConsoleBox();
+                  print(data.f01);
                 },
                 child: const Icon(
                   Icons.edit,
@@ -222,81 +202,4 @@ class _MyData extends DataTableSource {
           )),
         ]);
   }
-}
-
-void _IncTypeConsoleBox() {
-  showDialog(
-    context: IncTypeContexttable,
-    barrierDismissible: true,
-    builder: (BuildContext context) {
-      return Container(
-        // color: Colors.blue,
-        child: Dialog(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-                height: 100,
-                width: 700,
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: 200,
-                      height: 60,
-                      child: ComInputText(
-                        sLabel: "TYPE",
-                        isContr: undercontrolIncType,
-                        fnContr: (input) {
-                          undercontrolIncType = input;
-                        },
-                        sValue: IncType_TYPE,
-                        returnfunc: (String s) {
-                          IncType_TYPE = s;
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: 200,
-                      height: 60,
-                      child: ComInputText(
-                        isEnabled: false,
-                        sLabel: "masterID",
-                        isContr: undercontrolIncType,
-                        fnContr: (input) {
-                          undercontrolIncType = input;
-                        },
-                        sValue: IncType_masterID,
-                        returnfunc: (String s) {
-                          IncType_masterID = s;
-                        },
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        const SizedBox(
-                          width: 150,
-                          height: 40,
-                        ),
-                        SizedBox(
-                          width: 150,
-                          height: 40,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            // style: ButtonStyle(
-                            //   backgroundColor:
-                            //       MaterialStateProperty.all(Colors.red),
-                            // ),
-                            child: const Text("UPDATE"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                )),
-          ),
-        ),
-      );
-    },
-  );
 }

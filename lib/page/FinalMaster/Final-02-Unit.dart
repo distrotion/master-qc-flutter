@@ -1,41 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/BlocEvent/02-final.dart';
 import '../../bloc/Cubit/Rebuild.dart';
 import '../../data/global.dart';
 import '../../styles/TextStyle.dart';
 import '../../widget/common/ComInputText.dart';
 import '../../widget/common/Easydropdown.dart';
 import '../../widget/common/Loading.dart';
-import 'incoming-control.dart';
+import 'Final-control.dart';
 
 String _searchResult = '';
-late BuildContext IncUnitContexttable;
+late BuildContext FnlUnitContexttable;
 
-class IncUnitTable extends StatefulWidget {
-  IncUnitTable({Key? key, this.data}) : super(key: key);
-  List<dataset>? data;
+class FnlUnitTable extends StatefulWidget {
+  FnlUnitTable({Key? key, this.data}) : super(key: key);
+  mapdataset? data;
 
   @override
-  _IncUnitTableState createState() => _IncUnitTableState();
+  _FnlUnitTableState createState() => _FnlUnitTableState();
 }
 
-class _IncUnitTableState extends State<IncUnitTable> {
+class _FnlUnitTableState extends State<FnlUnitTable> {
   int _sortColumnIndex = 0;
   bool _sortAscending = true;
 
   @override
   void initState() {
     super.initState();
-    // context.read<DataSetBloc>().add(GetDataPressed());
+    context.read<Final_Bloc>().add(Final_UNIT_flush());
+    // Future.delayed(Duration(milliseconds: 100)).then((valueFuture) =>
+    //     context.read<Fnloming_Bloc>().add(Fnloming_UNIT_flush()));
   }
 
   TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    IncUnitContexttable = context;
-    final _MyData _data = _MyData(context, widget.data ?? []);
+    FnlUnitContexttable = context;
+    final _MyData _data = _MyData(context, widget.data?.set01 ?? []);
 
     void _sort<T>(Comparable<T> Function(dataset d) getField, int columnIndex,
         bool ascending) {
@@ -97,11 +100,11 @@ class _IncUnitTableState extends State<IncUnitTable> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              IncUnit_masterID = '';
-                              IncUnit_Unit = '';
-                              IncUnit_Type = '';
-                              IncUnit_Desimal = '';
-                              _IncUnitConsoleBox();
+                              FnlUnit_masterID = '';
+                              FnlUnit_Unit = '';
+                              FnlUnit_Type = '';
+                              FnlUnit_Desimal = '';
+                              _FnlUnitConsoleBox();
                             },
                             // style: ButtonStyle(
                             //   backgroundColor:
@@ -220,11 +223,11 @@ class _MyData extends DataTableSource {
             children: [
               InkWell(
                 onTap: () {
-                  IncUnit_Type = data.f01;
-                  IncUnit_Unit = data.f02;
-                  IncUnit_Desimal = data.f03;
-                  IncUnit_masterID = data.f04;
-                  _IncUnitConsoleBox();
+                  FnlUnit_Type = data.f01;
+                  FnlUnit_Unit = data.f02;
+                  FnlUnit_Desimal = data.f03;
+                  FnlUnit_masterID = data.f04;
+                  _FnlUnitConsoleBox();
                 },
                 child: const Icon(
                   Icons.edit,
@@ -244,9 +247,9 @@ class _MyData extends DataTableSource {
   }
 }
 
-void _IncUnitConsoleBox() {
+void _FnlUnitConsoleBox() {
   showDialog(
-    context: IncUnitContexttable,
+    context: FnlUnitContexttable,
     barrierDismissible: true,
     builder: (BuildContext context) {
       return Container(
@@ -285,15 +288,15 @@ void _IncUnitConsoleBox() {
                             child: EasyDropDown(
                               listdropdown: ["", "Attribute", "length"],
                               onChangeinside: (input) {
-                                IncUnit_Type = input;
+                                FnlUnit_Type = input;
                                 onLoadingType01_ms(
-                                    IncUnitContexttable,
+                                    FnlUnitContexttable,
                                     () {},
                                     BlocProvider.of<BlocPageRebuild>(
-                                            IncUnitContexttable)
+                                            FnlUnitContexttable)
                                         .rebuildPage());
                               },
-                              value: IncUnit_Type,
+                              value: FnlUnit_Type,
                               width: 150,
                               height: 40,
                             ),
@@ -305,13 +308,13 @@ void _IncUnitConsoleBox() {
                         height: 60,
                         child: ComInputText(
                           sLabel: "UNIT",
-                          isContr: undercontrolIncUnit,
+                          isContr: undercontrolFnlUnit,
                           fnContr: (input) {
-                            undercontrolIncUnit = input;
+                            undercontrolFnlUnit = input;
                           },
-                          sValue: IncUnit_Unit,
+                          sValue: FnlUnit_Unit,
                           returnfunc: (String s) {
-                            IncUnit_Unit = s;
+                            FnlUnit_Unit = s;
                           },
                         ),
                       ),
@@ -337,15 +340,15 @@ void _IncUnitConsoleBox() {
                             child: EasyDropDown(
                               listdropdown: ["", "0", "1", "2", "3", "4", "5"],
                               onChangeinside: (input) {
-                                IncUnit_Desimal = input;
+                                FnlUnit_Desimal = input;
                                 onLoadingType01_ms(
-                                    IncUnitContexttable,
+                                    FnlUnitContexttable,
                                     () {},
                                     BlocProvider.of<BlocPageRebuild>(
-                                            IncUnitContexttable)
+                                            FnlUnitContexttable)
                                         .rebuildPage());
                               },
-                              value: IncUnit_Desimal,
+                              value: FnlUnit_Desimal,
                               width: 100,
                               height: 40,
                             ),
@@ -358,13 +361,13 @@ void _IncUnitConsoleBox() {
                         child: ComInputText(
                           isEnabled: false,
                           sLabel: "masterID",
-                          isContr: undercontrolIncUnit,
+                          isContr: undercontrolFnlUnit,
                           fnContr: (input) {
-                            undercontrolIncUnit = input;
+                            undercontrolFnlUnit = input;
                           },
-                          sValue: IncUnit_masterID,
+                          sValue: FnlUnit_masterID,
                           returnfunc: (String s) {
-                            IncUnit_masterID = s;
+                            FnlUnit_masterID = s;
                           },
                         ),
                       ),

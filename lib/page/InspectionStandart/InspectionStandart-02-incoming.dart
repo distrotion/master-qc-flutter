@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/global.dart';
 
+class InspSTdINCOMINGTableBUFFER extends StatelessWidget {
+  const InspSTdINCOMINGTableBUFFER({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InspSTdINCOMINGTable();
+  }
+}
+
 String _searchResult = '';
 
-class IncITEMsTable extends StatefulWidget {
-  IncITEMsTable({Key? key, this.data}) : super(key: key);
+class InspSTdINCOMINGTable extends StatefulWidget {
+  InspSTdINCOMINGTable({Key? key, this.data}) : super(key: key);
   List<dataset>? data;
 
   @override
-  _IncITEMsTableState createState() => _IncITEMsTableState();
+  _InspSTdINCOMINGTableState createState() => _InspSTdINCOMINGTableState();
 }
 
-class _IncITEMsTableState extends State<IncITEMsTable> {
+class _InspSTdINCOMINGTableState extends State<InspSTdINCOMINGTable> {
   int _sortColumnIndex = 0;
   bool _sortAscending = true;
 
@@ -43,29 +54,29 @@ class _IncITEMsTableState extends State<IncITEMsTable> {
         width: 1200,
         child: Column(
           children: [
-            Card(
-              child: ListTile(
-                leading: const Icon(Icons.search),
-                title: TextField(
-                    controller: controller,
-                    decoration: const InputDecoration(
-                        hintText: 'Search', border: InputBorder.none),
-                    onChanged: (value) {
-                      setState(() {
-                        _searchResult = value;
-                      });
-                    }),
-                trailing: IconButton(
-                  icon: const Icon(Icons.cancel),
-                  onPressed: () {
-                    setState(() {
-                      controller.clear();
-                      _searchResult = '';
-                    });
-                  },
-                ),
-              ),
-            ),
+            // Card(
+            //   child: ListTile(
+            //     leading: const Icon(Icons.search),
+            //     title: TextField(
+            //         controller: controller,
+            //         decoration: const InputDecoration(
+            //             hintText: 'Search', border: InputBorder.none),
+            //         onChanged: (value) {
+            //           setState(() {
+            //             _searchResult = value;
+            //           });
+            //         }),
+            //     trailing: IconButton(
+            //       icon: const Icon(Icons.cancel),
+            //       onPressed: () {
+            //         setState(() {
+            //           controller.clear();
+            //           _searchResult = '';
+            //         });
+            //       },
+            //     ),
+            //   ),
+            // ),
             const SizedBox(
               height: 10,
             ),
@@ -74,10 +85,10 @@ class _IncITEMsTableState extends State<IncITEMsTable> {
                 width: 1200,
                 child: PaginatedDataTable(
                   source: _data,
-                  header: const Text('Table Master'),
+                  header: const Text('INCOMING'),
                   columns: [
                     DataColumn(
-                        label: const Text('TYPE'),
+                        label: const Text('SEQ.'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f01, columnIndex, ascending)),
@@ -87,30 +98,70 @@ class _IncITEMsTableState extends State<IncITEMsTable> {
                             _sort<String>(
                                 (dataset d) => d.f02, columnIndex, ascending)),
                     DataColumn(
-                        label: const Text('REsult Format'),
+                        label: const Text('S.C.MARK'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f03, columnIndex, ascending)),
                     DataColumn(
-                        label: const Text('Graph Type'),
+                        label: const Text('DOCUMENT'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f04, columnIndex, ascending)),
                     DataColumn(
-                        label: const Text('Graph Intersec'),
+                        label: const Text('METHOD'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f05, columnIndex, ascending)),
                     DataColumn(
-                        label: const Text('masterID'),
+                        label: const Text('LOAD'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f06, columnIndex, ascending)),
                     DataColumn(
-                        label: const Text('ACTION'),
+                        label: const Text('GT'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
                                 (dataset d) => d.f07, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('SPECIFICATIONve'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f08, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('UNIT'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f09, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('CONv.From'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f10, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('POSITION'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f11, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('PSC'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f12, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('Frequency'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f13, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('Remark'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f14, columnIndex, ascending)),
+                    DataColumn(
+                        label: const Text('ACTION'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f15, columnIndex, ascending)),
                   ],
                   columnSpacing: 100,
                   horizontalMargin: 10,
@@ -142,17 +193,7 @@ class _MyData extends DataTableSource {
   }
   _MyData(this.context, this.input) {
     _data = input;
-    _data_exp = [];
-
-    for (int i = 0; i < _data.length; i++) {
-      if (_data[i].f01.toLowerCase().contains(_searchResult) ||
-          _data[i].f02.toLowerCase().contains(_searchResult) ||
-          _data[i].f03.toLowerCase().contains(_searchResult) ||
-          _data[i].f04.toLowerCase().contains(_searchResult) ||
-          _data[i].f05.toLowerCase().contains(_searchResult)) {
-        _data_exp.add(_data[i]);
-      }
-    }
+    _data_exp = _data;
   }
 
   void _sort<T>(Comparable<T> Function(dataset d) getField, bool ascending) {
@@ -190,6 +231,14 @@ class _MyData extends DataTableSource {
           DataCell(Text(data.f04)),
           DataCell(Text(data.f05)),
           DataCell(Text(data.f06)),
+          DataCell(Text(data.f07)),
+          DataCell(Text(data.f08)),
+          DataCell(Text(data.f09)),
+          DataCell(Text(data.f10)),
+          DataCell(Text(data.f11)),
+          DataCell(Text(data.f12)),
+          DataCell(Text(data.f13)),
+          DataCell(Text(data.f14)),
           DataCell(Row(
             children: [
               InkWell(

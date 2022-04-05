@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/Cubit/Rebuild.dart';
 import '../data/global.dart';
+import 'FinalMaster/Final-main.dart';
 import 'page0.dart';
 import '../data/global.dart';
 
@@ -9,8 +12,12 @@ class Page2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Page2Body();
-    ;
+    return MultiBlocProvider(providers: [
+      BlocProvider<BlocPageRebuild>(
+        create: (BuildContext context) =>
+            BlocPageRebuild(), //For rebuild only page inside without app bar/left menu
+      ),
+    ], child: Page2Body());
   }
 }
 
@@ -19,13 +26,10 @@ class Page2Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        height: 100,
-        width: 100,
-        color: Colors.blue,
-        child: const Text("PAGE 2"),
-      ),
+    return BlocBuilder<BlocPageRebuild, bool>(
+      builder: (_, e) {
+        return TapMainFnlomingBody();
+      },
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:equatable/equatable.dart';
 import '../page/page0.dart';
 
 String token = '';
@@ -53,39 +54,59 @@ class dataset {
     this.f29 = '',
     this.f30 = '',
   });
-  final int id;
-  final String f01;
-  final String f02;
-  final String f03;
-  final String f04;
-  final String f05;
-  final String f06;
-  final String f07;
-  final String f08;
-  final String f09;
-  final String f10;
-  final String f11;
-  final String f12;
-  final String f13;
-  final String f14;
-  final String f15;
-  final String f16;
-  final String f17;
-  final String f18;
-  final String f19;
-  final String f20;
-  final String f21;
-  final String f22;
-  final String f23;
-  final String f24;
-  final String f25;
-  final String f26;
-  final String f27;
-  final String f28;
-  final String f29;
-  final String f30;
+  int id;
+  String f01;
+  String f02;
+  String f03;
+  String f04;
+  String f05;
+  String f06;
+  String f07;
+  String f08;
+  String f09;
+  String f10;
+  String f11;
+  String f12;
+  String f13;
+  String f14;
+  String f15;
+  String f16;
+  String f17;
+  String f18;
+  String f19;
+  String f20;
+  String f21;
+  String f22;
+  String f23;
+  String f24;
+  String f25;
+  String f26;
+  String f27;
+  String f28;
+  String f29;
+  String f30;
 
   bool selected = false;
 }
 
 List<dataset> ZeroDataset = [];
+
+class mapdataset {
+  mapdataset({
+    required this.set01,
+    required this.set02,
+    required this.set03,
+    required this.set04,
+    required this.set05,
+  });
+  final List<dataset> set01;
+  final List<dataset> set02;
+  final List<dataset> set03;
+  final List<dataset> set04;
+  final List<dataset> set05;
+
+  bool selected = false;
+}
+
+mapdataset zeromapdataset =
+    mapdataset(set01: [], set02: [], set03: [], set04: [], set05: []);

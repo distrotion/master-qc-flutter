@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'MaterailMaster/MaterailMaster-main.dart';
 import 'page0.dart';
 import '../data/global.dart';
 
@@ -17,12 +18,7 @@ class Page3Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        height: 100,
-        width: 100,
-        color: Colors.green,
-        child: const Text("PAGE 3"),
-      ),
+      child: MatMasterTableINPUT(),
     );
   }
 }
