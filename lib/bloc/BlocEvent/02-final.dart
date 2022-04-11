@@ -224,6 +224,7 @@ class Final_Bloc extends Bloc<Final_Event, mapdataset> {
         cybuf.f03 = databuff['METHOD'][i]['DOCUMENTSM'].toString();
         cybuf.f04 = '-';
         cybuf.f05 = databuff['METHOD'][i]['masterID'].toString();
+        cybuf.f07 = 'METHOD-NAME-${i}';
         output.set01.add(cybuf);
       }
       print(output);
@@ -274,18 +275,28 @@ class Final_Bloc extends Bloc<Final_Event, mapdataset> {
     if (response.statusCode == 200) {
       // var databuff = jsonDecode(response.body);
       var databuff = response.data;
-      print(databuff);
-      // output.set01.clear();
+      // print(databuff);
+      output.set01.clear();
+      output.set02.clear();
+      output.set03.clear();
 
-      // for (int i = 0; i < databuff['UNIT'].length; i++) {
-      //   dataset cybuf = new dataset();
-      //   // print(databuff['TYPE'][i]['TYPE']);
-      //   cybuf.f01 = databuff['UNIT'][i]['TYPE'].toString();
-      //   cybuf.f02 = databuff['UNIT'][i]['UNIT'].toString();
-      //   cybuf.f03 = databuff['UNIT'][i]['masterID'].toString();
-      //   output.set01.add(cybuf);
-      // }
-      print(output);
+      for (int i = 0; i < databuff['ITEMs'].length; i++) {
+        dataset cybuf = new dataset();
+        // print(databuff['TYPE'][i]['TYPE']);
+
+        cybuf.f01 = databuff['ITEMs'][i]['ITEMs'].toString();
+        cybuf.f02 = databuff['ITEMs'][i]['masterID'].toString();
+        output.set02.add(cybuf);
+      }
+
+      for (int i = 0; i < databuff['METHOD'].length; i++) {
+        dataset cybuf = new dataset();
+        // print(databuff['TYPE'][i]['TYPE']);
+        cybuf.f01 = 'METHOD-NAME-${i}';
+        cybuf.f02 = databuff['METHOD'][i]['masterID'].toString();
+
+        output.set03.add(cybuf);
+      }
     } else {
       print("NO RESPONSE");
     }

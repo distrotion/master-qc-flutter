@@ -79,6 +79,11 @@ class _FnlMethodTableState extends State<FnlMethodTable> {
                   header: const Text('Table Master'),
                   columns: [
                     DataColumn(
+                        label: const Text('Name'),
+                        onSort: (int columnIndex, bool ascending) =>
+                            _sort<String>(
+                                (dataset d) => d.f07, columnIndex, ascending)),
+                    DataColumn(
                         label: const Text('ITEMs'),
                         onSort: (int columnIndex, bool ascending) =>
                             _sort<String>(
@@ -181,6 +186,7 @@ class _MyData extends DataTableSource {
         //   }
         // },
         cells: [
+          DataCell(Text(data.f07)),
           DataCell(Text(data.f01)),
           DataCell(Text(data.f02)),
           DataCell(Text(data.f03)),

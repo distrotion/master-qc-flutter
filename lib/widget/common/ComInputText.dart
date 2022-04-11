@@ -254,7 +254,7 @@ class _ComInputTextState extends State<ComInputText> {
 
       return Container(
         color: _isEnabled ? Colors.white : Colors.grey,
-        height: 36,
+        height: 40,
         child: TextFormField(
           controller: _controller,
           // onChanged:
